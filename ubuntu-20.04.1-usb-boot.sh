@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# More details: https://ubuntu.com/tutorials/how-to-install-ubuntu-desktop-on-raspberry-pi-4#4-optional-usb-boot
 
 # Extract the current bootloader configuration to a text file
 vcgencmd bootloader_config > bootconf.txt
