@@ -1,0 +1,10 @@
+[control]
+control01       ansible_connection=local        var_hostname=control01  var_disk=mmcblk0        var_uuid=a9319ebd-053c-4c25-8220-39dae86a82ff
+
+[workers]
+worker01        ansible_connection=ssh          var_hostname=worker01   var_disk=mmcblk0        var_uuid=d8ba7afa-f7c0-4624-9315-7ffb232d6992
+worker02        ansible_connection=ssh          var_hostname=worker02   var_disk=mmcblk0        var_uuid=6452a189-ef00-4aab-b004-269d88e34576
+
+[cube:children]
+control
+workers
