@@ -1,0 +1,20 @@
+---
+mac_address_mapping:
+  "dc:a6:32:6a:f8:d7":
+    name: control01.picluster
+    ip: "10.40.0.11"
+  "dc:a6:32:6a:fb:50":
+    name: worker01.picluster
+    ip: "10.40.0.12"
+  "dc:a6:32:6b:18:39":
+    name: worker02.picluster
+    ip: "10.40.0.13"
+  "00:00:00:00:00:00":
+    name: worker03.picluster
+    ip: "10.40.0.14"
+
+dns_nameservers:
+  - "1.1.1.1"
+  - "8.8.8.8"
+
+picluster_ip_gateway: "10.40.0.1"

@@ -4,7 +4,7 @@
 
 # Extract the current bootloader configuration to a text file
 apt install rpi-eeprom
-vcgencmd bootloader_config > bootconf.txt
+vcgencmd bootloader_config >bootconf.txt
 
 # Set the BOOT_ORDER option to 0xf14 (meaning attempt USB mass-storage device, then SD card, then repeat)
 sed -i -e '/^BOOT_ORDER=/ s/=.*$/=0xf14/' bootconf.txt

@@ -8,3 +8,6 @@ worker02   ansible_connection=ssh    var_hostname=worker02   var_disk=mmcblk0  v
 [picluster:children]
 control
 workers
+
+[picluster:vars]
+ansible_ssh_user=ubuntu
