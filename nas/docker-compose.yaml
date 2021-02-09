@@ -1,0 +1,58 @@
+version: "3.9"
+services:
+
+# === Private Cloud Services ===
+  cloudflare-ddns:
+    image: hotio/cloudflare-ddns:stable-3360b95-196-linux-amd64
+  openvpn-as:
+    image: linuxserver/openvpn-as
+  pihole: 
+    image: pihole/pihole:latest
+  traefik:
+    image: traefik:v1.7
+  portainer:
+    image: portainer/portainer
+  unifi-controller:
+    image: linuxserver/unifi-controller:LTS
+  unms:
+    image: nico640/docker-unms
+
+# === Monitoring ===
+  grafana:
+    image: grafana/grafana
+  hddtemp:
+    image: drewster727/hddtemp-docker
+  hs110:
+    image: wouterstemgee/hs110influx:latest
+  influx:
+    image: influxdb:latest
+  telegraf:
+    image: telegraf:alpine
+
+# === Home Media Streaming ===
+  plex:
+    image: linuxserver/plex
+  tautulli:
+    image: linuxserver/tautulli
+  ombi:
+    image: linuxserver/ombi
+  transmission:
+    image: linuxserver/transmission
+  sonarr:
+    image: linuxserver/sonarr
+  radarr:
+    image: linuxserver/radarr
+  jackett:
+    image: linuxserver/jackett
+  flaresolverr:
+    image: flaresolverr/flaresolverr
+
+# === Home Automation ===
+  home-assistant:
+    image: homeassistant/home-assistant
+
+# === Game Servers ===
+  factorio:
+    image: factoriotools/factorio:stable
+  minecraft:
+    image: ich777/minecraftbasicserver
