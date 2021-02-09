@@ -1,7 +1,5 @@
 ---
 - hosts: picluster
-  become: true
-  become_user: ubuntu
 
   vars_files:
     - vars.yaml

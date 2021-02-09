@@ -22,14 +22,33 @@
 - Download [Ubuntu Server 20.04 (LTS) 64-bit image](https://ubuntu.com/download/raspberry-pi)
 - Flash image to the USB connected drive (SSD)
 - Format SD Card
+#### Networking
+- IP addresses
+    - DHCP server: lease IP addresses based on the MAC address of each node
+    - Static IP: playbook
+- Hostnames
+    - playbook: set hostnames, copy /etc/hostnames to all nodes
 #### Authentication
 - Generate SSH-keypair locally: `ssh-keygen -t rsa`
-- Copy pubkey to all nodes and disable SSH password authentication
+- Copy the public key to all nodes and disable SSH password authentication
     - Install sshpass: `sudo apt install sshpass`
     - Run ansible playbook: `ansible-playbook -i inventory ssh.yaml --ask-pass`
     - Enter SSH password for user `ubuntu` (default password: `ubuntu`)
-
-### Networking
+- Verify authentiction is working: `ansible picluster -i inventory -m ping`
+```
+worker01 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+worker02 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+control01 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}
+```
 ### Storage
 ### Kubernetes
 

@@ -1,0 +1,7 @@
+127.0.0.1 localhost
+
+10.40.0.11 control01 control01.picluster
+
+10.40.0.11 worker01 worker01.picluster
+10.40.0.12 worker02 worker02.picluster
+10.40.0.13 worker03 worker03.picluster
