@@ -3,4 +3,4 @@ This repository contains all the configuration files describing my personal home
 
 ## Contents
 - [Raspberry Pi Kubernetes Cluster](./picluster)
-- [EdgeRouter Boot Configuration (HomeLab Gateway - Firewall)](edgerouter)
+- [EdgeRouter Boot Configuration (HomeLab Gateway - Firewall)](./edgerouter/config.boot)

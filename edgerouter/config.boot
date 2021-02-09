@@ -188,6 +188,24 @@ firewall {
             }
         }
         rule 20 {
+            action accept
+            description "Allow HTTP"
+            destination {
+                port 80
+            }
+            log disable
+            protocol tcp
+        }
+        rule 30 {
+            action accept
+            description "Allow HTTPS"
+            destination {
+                port 443
+            }
+            log disable
+            protocol tcp
+        }
+        rule 40 {
             action drop
             description "Drop invalid state"
             state {
@@ -454,12 +472,12 @@ service {
                 dns-server 1.1.1.1
                 dns-server 8.8.8.8
                 lease 86400
-                start 10.40.0.100 {
+                start 10.40.0.200 {
                     stop 10.40.0.254
                 }
                 static-mapping pi-cluster-node01 {
                     ip-address 10.40.0.11
-                    mac-address dc:a6:32:25:12:2c
+                    mac-address dc:a6:32:6a:f8:d7
                 }
                 static-mapping pi-cluster-node02 {
                     ip-address 10.40.0.12
@@ -467,7 +485,7 @@ service {
                 }
                 static-mapping pi-cluster-node03 {
                     ip-address 10.40.0.13
-                    mac-address dc:a6:32:6a:f8:d7
+                    mac-address dc:a6:32:6b:18:39
                 }
             }
         }
@@ -482,58 +500,7 @@ service {
                 start 10.20.0.11 {
                     stop 10.20.0.254
                 }
-                static-mapping APLiving {
-                    ip-address 10.20.0.116
-                    mac-address e0:63:da:33:8d:27
-                }
-                static-mapping APZolder {
-                    ip-address 10.20.0.114
-                    mac-address 18:e8:29:c9:1f:bc
-                }
-                static-mapping HS110 {
-                    ip-address 10.20.0.110
-                    mac-address 50:d4:f7:1a:4d:f2
-                }
-                static-mapping SWITCH-KELDER {
-                    ip-address 10.20.0.4
-                    mac-address 38:94:ED:B2:19:A8
-                }
-                static-mapping SWITCH-ZOLDER {
-                    ip-address 10.20.0.6
-                    mac-address 3c:37:86:20:c9:72
-                }
-                static-mapping SWITCH-ZOLDER-2 {
-                    ip-address 10.20.0.9
-                    mac-address 38:94:ed:2f:1e:b6
-                }
-                static-mapping dc2 {
-                    ip-address 10.20.0.5
-                    mac-address 52:54:00:b0:8c:bb
-                }
-                static-mapping dev {
-                    ip-address 10.20.0.48
-                    mac-address f6:5b:b3:70:c2:1f
-                }
-                static-mapping mothership {
-                    ip-address 10.20.0.45
-                    mac-address 24:b6:fd:f8:1f:78
-                }
-                static-mapping pi-dev {
-                    ip-address 10.20.0.10
-                    mac-address dc:a6:32:6b:18:39
-                }
-                static-mapping proxmox {
-                    ip-address 10.20.0.43
-                    mac-address d4:ae:52:aa:d3:81
-                }
-                static-mapping salvage01 {
-                    ip-address 10.20.0.8
-                    mac-address 70:85:C2:F3:8C:34
-                }
-                static-mapping salvage02 {
-                    ip-address 10.20.0.7
-                    mac-address 52:54:00:9f:b6:bf
-                }
+                static-mapping {}
                 unifi-controller 10.20.0.2
             }
         }
@@ -545,6 +512,7 @@ service {
             cache-size 150
             listen-on eth1.20
             listen-on pppoe0
+            listen-on pppoe1
         }
     }
     gui {
@@ -553,6 +521,34 @@ service {
         older-ciphers enable
     }
     nat {
+        rule 1 {
+            description INGRESS_HTTP
+            destination {
+                port 80
+            }
+            inbound-interface pppoe1
+            inside-address {
+                address 10.40.0.50
+                port 80
+            }
+            log disable
+            protocol tcp
+            type destination
+        }
+        rule 2 {
+            description INGRESS_HTTPS
+            destination {
+                port 443
+            }
+            inbound-interface pppoe1
+            inside-address {
+                address 10.40.0.50
+                port 443
+            }
+            log disable
+            protocol tcp
+            type destination
+        }
         rule 5000 {
             destination {
                 group {
@@ -618,7 +614,7 @@ service {
         disable
     }
     unms {
-        connection <wss-uri>
+        connection <wss://>
     }
     upnp {
         listen-on eth1 {
@@ -638,8 +634,8 @@ system {
     login {
         user wouter {
             authentication {
-                encrypted-password ""
-                plaintext-password ""
+                encrypted-password <encrypted-password>
+                plaintext-password <plaintext-password>
             }
             full-name "Wouter Stemgée"
             level admin
