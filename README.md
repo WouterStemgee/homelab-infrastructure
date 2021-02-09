@@ -3,7 +3,7 @@ This repository contains all the configuration files describing my personal home
 
 ## Contents
 - [Raspberry Pi Kubernetes Cluster](./picluster)
-- [EdgeRouter Boot Configuration (HomeLab Gateway - Firewall)](./edgerouter/config)
+- [Ubiquiti EdgeRouter Boot Configuration (HomeLab Gateway - Firewall)](./edgerouter/config)
 
 ## License
 Licensed under the [MIT license](LICENSE).
