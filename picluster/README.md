@@ -1,4 +1,4 @@
-# Raspberry Pi HomeLab
+# Raspberry Pi Cluster
 ## Goals
 ## Requirements
 ### Hardware
@@ -63,8 +63,6 @@ control01 | SUCCESS => {
 ### Arkade
 ### OpenFaaS
 
-## License
-Licensed under the [MIT license](http://mit-license.org/WouterStemgee).
 
 ## References
 - [Raspberry Pi 4 bootloader configuration
