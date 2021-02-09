@@ -31,7 +31,7 @@
     - name: Disable password login
       lineinfile: 
         dest: "{{ sshd_config }}" 
-        regexp: '^(#\s*)?PasswordAuthentication '
+        regexp: '^(#\s*)?PasswordAuthentication'
         line: 'PasswordAuthentication no'
       when: 
         - add_identity_key is succeeded 

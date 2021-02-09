@@ -46,7 +46,7 @@ ansible picluster -m apt -a "upgrade=yes update_cache=yes" --become
 # enable container support
 ansible picluster -b -m shell -a "sed -i '$ s/$/ cgroup_enable=cpuset cgroup_enable=memory cgroup_memory=1 swapaccount=1/' /boot/firmware/cmdline.txt"
 
-# enable bridged traffic with iptables, add following to ~/k8s.conf
+# enable bridged traffic with iptables, add following to a new file: ~/k3s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 
@@ -66,7 +66,6 @@ ansible picluster -b -m reboot
 ```bash
 # control nodes
 ansible control01 -b -m shell -a "curl -sfL https://get.k3s.io | K3S_TOKEN="<random_password>" sh -s - server --cluster-init --disable servicelb --disable traefik"
-
 ansible control02,control03 -b -m shell -a "curl -sfL https://get.k3s.io | K3S_TOKEN="<random_password>" sh -s - server --server https://control01:6443 --disable servicelb --disable traefik"
 
 # worker nodes

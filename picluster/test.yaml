@@ -1,9 +1,0 @@
----
-- hosts: picluster
-
-  vars_files:
-    - vars.yaml
-  
-  tasks:
-    - name: Test Ping
-      action: ping

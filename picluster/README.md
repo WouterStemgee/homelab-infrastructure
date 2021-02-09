@@ -1,4 +1,5 @@
 # Raspberry Pi HomeLab
+## Goals
 ## Requirements
 ### Hardware
 - Raspberry Pi 4
@@ -34,7 +35,7 @@
     - Install sshpass: `sudo apt install sshpass`
     - Run ansible playbook: `ansible-playbook -i inventory ssh.yaml --ask-pass`
     - Enter SSH password for user `ubuntu` (default password: `ubuntu`)
-- Verify authentiction is working: `ansible picluster -i inventory -m ping`
+- Verify authentication is working: `ansible picluster -i inventory -m ping`
 ```
 worker01 | SUCCESS => {
     "changed": false,
