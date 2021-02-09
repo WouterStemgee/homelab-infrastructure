@@ -1,7 +1,7 @@
 ---
 - hosts: picluster
   become: true
-  become_user: ubuntu
+  become_user: root
 
   vars_files:
     - vars.yaml
@@ -12,3 +12,32 @@
         user: ubuntu
         state: present
         key: "{{ lookup('file', lookup('env','HOME') + '/.ssh/id_rsa.pub') }}"
+      register: add_identity_key
+    
+    - name: Disable empty password login
+      lineinfile: 
+        dest: "{{ sshd_config }}" 
+        regexp: '^#?PermitEmptyPasswords' 
+        line: 'PermitEmptyPasswords no'
+      notify: restart sshd
+
+    - name: Disable remote root login
+      lineinfile: 
+        dest: "{{ sshd_config }}" 
+        regexp: '^#?PermitRootLogin' 
+        line: 'PermitRootLogin no'
+      notify: restart sshd
+
+    - name: Disable password login
+      lineinfile: 
+        dest: "{{ sshd_config }}" 
+        regexp: '^(#\s*)?PasswordAuthentication '
+        line: 'PasswordAuthentication no'
+      when: 
+        - add_identity_key is succeeded 
+        - not add_identity_key is skipped
+      notify: restart sshd
+
+  handlers:
+    - name: restart sshd
+      service: name={{ sshd }} state=restarted

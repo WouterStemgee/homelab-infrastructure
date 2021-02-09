@@ -1,5 +1,6 @@
 ---
-mac_address_mapping:
+# Networking
+ac_address_mapping:
   "dc:a6:32:6a:f8:d7":
     name: control01.picluster
     ip: "10.40.0.11"
@@ -12,9 +13,11 @@ mac_address_mapping:
   "00:00:00:00:00:00":
     name: worker03.picluster
     ip: "10.40.0.14"
-
 dns_nameservers:
   - "1.1.1.1"
   - "8.8.8.8"
-
 ip_gateway: "10.40.0.1"
+
+# Authentication
+sshd: ssh
+sshd_config: /etc/ssh/sshd_config
