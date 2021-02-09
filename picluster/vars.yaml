@@ -17,4 +17,4 @@ dns_nameservers:
   - "1.1.1.1"
   - "8.8.8.8"
 
-picluster_ip_gateway: "10.40.0.1"
+ip_gateway: "10.40.0.1"
