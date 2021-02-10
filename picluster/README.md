@@ -70,3 +70,4 @@ control01 | SUCCESS => {
 - [Raspberry Pi 4 boot EEPROM](https://www.raspberrypi.org/documentation/hardware/raspberrypi/booteeprom.md)
 - [Raspberry Pi 4 Ubuntu 20.04 / 20.10 USB Mass Storage Boot Guide](https://jamesachambers.com/raspberry-pi-4-ubuntu-20-04-usb-mass-storage-boot-guide/)
 - [How to install Ubuntu on Raspberry Pi 4 - USB Boot](https://ubuntu.com/tutorials/how-to-install-ubuntu-desktop-on-raspberry-pi-4#4-optional-usb-boot)
+- [rpi-eeprom](https://github.com/raspberrypi/rpi-eeprom/tree/master/firmware)
