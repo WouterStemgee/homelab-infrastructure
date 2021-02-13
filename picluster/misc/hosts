@@ -2,6 +2,8 @@
 
 10.40.0.2   dns01       dns01.picluster
 
+10.40.0.10  pidev       pidev.picluster
+
 10.40.0.11  control01   control01.picluster
 10.40.0.12  worker01    worker01.picluster
 10.40.0.13  worker02    worker02.picluster
