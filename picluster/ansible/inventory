@@ -28,7 +28,7 @@ pidev      ansible_host=10.40.0.10  ansible_connection=ssh  var_hostname=pidev  
 # Raspberry Pi 2 Model B (1G) - DNS Server
 #########################################################################
 [dns]
-piroute    ansible_host=10.40.0.2   ansible_connection=ssh  var_hostname=piroute
+dns01      ansible_host=10.40.0.2   ansible_connection=ssh  var_hostname=dns01
 
 
 [picluster:children]
