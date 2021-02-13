@@ -18,6 +18,19 @@ control01  ansible_host=10.40.0.11  ansible_connection=ssh  var_hostname=control
 worker01   ansible_host=10.40.0.12  ansible_connection=ssh  var_hostname=worker01   var_disk=mmcblk0  var_uuid=d8ba7afa-f7c0-4624-9315-7ffb232d6992
 worker02   ansible_host=10.40.0.13  ansible_connection=ssh  var_hostname=worker02   var_disk=mmcblk0  var_uuid=6452a189-ef00-4aab-b004-269d88e34576
 
+#########################################################################
+# Development server.
+#########################################################################
+[dev]
+pidev      ansible_host=10.40.0.10  ansible_connection=ssh  var_hostname=pidev      var_disk=mmcblk0  var_uuid=d8ba7afa-f7c0-4624-9315-7ffb232d6992
+
+#########################################################################
+# Raspberry Pi 2 Model B (1G) - DNS Server
+#########################################################################
+[dns]
+piroute    ansible_host=10.40.0.2   ansible_connection=ssh  var_hostname=piroute
+
+
 [picluster:children]
 control
 workers
