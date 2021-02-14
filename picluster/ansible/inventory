@@ -22,7 +22,7 @@ worker02   ansible_host=10.40.0.13  ansible_connection=ssh  var_hostname=worker0
 # Development server.
 #########################################################################
 [dev]
-pidev      ansible_host=10.40.0.10  ansible_connection=ssh  var_hostname=pidev      var_disk=mmcblk0  var_uuid=d8ba7afa-f7c0-4624-9315-7ffb232d6992
+pidev      ansible_host=10.40.0.10  ansible_connection=ssh  var_hostname=pidev      var_disk=mmcblk0  var_uuid=a136479c-fe8d-4a35-bed4-56fd88c3c07c
 
 #########################################################################
 # Raspberry Pi 2 Model B (1G) - DNS Server

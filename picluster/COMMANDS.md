@@ -10,7 +10,6 @@ ssh-keygen -t rsa
 ssh-copy-id -i ~/.ssh/id_rsa.pub ubuntu@control01
 ssh-copy-id -i ~/.ssh/id_rsa.pub ubuntu@worker01
 ssh-copy-id -i ~/.ssh/id_rsa.pub ubuntu@worker02
-ssh-copy-id -i ~/.ssh/id_rsa.pub ubuntu@worker03
 ```
 
 ## nmap
@@ -65,11 +64,11 @@ ansible picluster -b -m reboot
 ### k3s installation
 ```bash
 # control nodes
-ansible control01 -b -m shell -a "curl -sfL https://get.k3s.io | K3S_TOKEN="<random_password>" sh -s - server --cluster-init --disable servicelb --disable traefik"
-ansible control02,control03 -b -m shell -a "curl -sfL https://get.k3s.io | K3S_TOKEN="<random_password>" sh -s - server --server https://control01:6443 --disable servicelb --disable traefik"
+ansible control01 -b -m shell -a "curl -sfL https://get.k3s.io | K3S_TOKEN="<random_password>" INSTALL_K3S_VERSION=v1.19.7+k3s1 sh -s - server --cluster-init --disable servicelb --disable traefik"
+ansible control02,control03 -b -m shell -a "curl -sfL https://get.k3s.io | K3S_TOKEN="<random_password>" INSTALL_K3S_VERSION=v1.19.7+k3s1 sh -s - server --server https://control01:6443 --disable servicelb --disable traefik"
 
 # worker nodes
-ansible workers -b -m shell -a "curl -sfL https://get.k3s.io | K3S_URL="https://control01:6443" K3S_TOKEN="<random_password>" sh -"
+ansible workers -b -m shell -a "curl -sfL https://get.k3s.io | K3S_URL="https://control01:6443" K3S_TOKEN="<random_password>" INSTALL_K3S_VERSION=v1.19.7+k3s1 sh -"
 
 # label worker nodes (allow to select workers by label, so we can run pods in production on workers only)
 kubectl label nodes worker01 kubernetes.io/role=worker
@@ -80,8 +79,57 @@ kubectl label nodes worker03 kubernetes.io/role=worker
 kubectl label nodes worker03 node-type=worker
 
 # save kubeconfig location in the environment
-ansible cube -b -m lineinfile -a "path='/etc/environment' line='KUBECONFIG=/etc/rancher/k3s/k3s.yaml'"
+ansible picluster -b -m lineinfile -a "path='/etc/environment' line='KUBECONFIG=/etc/rancher/k3s/k3s.yaml'"
 
 # verify status and labels
 kubectl get nodes
+```
+
+### k3s uninstall
+```
+ansible workers -b -m shell -a "/usr/local/bin/k3s-agent-uninstall.sh"
+ansible control -b -m shell -a "/usr/local/bin/k3s-uninstall.sh"
+ansible picluster -b -m shell -a "rm -rf /storage/*"
+```
+
+### loadbalancer (metallb)
+```
+
+```
+
+### storage (longhorn)
+```
+# check status
+ansible picluster -b -m shell -a "lsblk -f"
+
+# wipe
+ansible picluster -b -m shell -a "wipefs -a /dev/{{ var_disk }}"
+
+# format & mount
+ansible picluster -b -m shell -a "mkfs.ext4 /dev/{{ var_disk }}"
+ansible picluster -m shell -a "mkdir /storage" -b
+ansible picluster -b -m shell -a "mount /dev/{{ var_disk }} /storage"
+
+# show UUID's
+ansible picluster -b -m shell -a "blkid -s UUID -o value /dev/{{ var_disk }}"
+
+# modify fstab (automount /storage on boot)
+ansible picluster -b -m shell -a "echo 'UUID={{ var_uuid }}  /storage       ext4    defaults        0       2' >> /etc/fstab"
+ansible picluster -b -m shell -a "grep UUID /etc/fstab"
+ansible picluster -b -m shell -a "mount -a"
+
+# install open-iscsi (longhorn pre-requisite)
+ansible picluster -b -m apt -a "name=open-iscsi state=present"
+
+# install longhorn
+git clone https://github.com/longhorn/longhorn.git
+kubectl create namespace longhorn-system
+helm install longhorn ./longhorn/chart/ --namespace longhorn-system --kubeconfig /etc/rancher/k3s/k3s.yaml --set defaultSettings.defaultDataPath="/storage"
+
+# verify installation
+kubectl -n longhorn-system get pod
+
+# set longhorn as default storageclass
+kubectl get storageclass
+kubectl patch storageclass local-path -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
 ```

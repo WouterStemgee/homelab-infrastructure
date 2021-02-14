@@ -28,7 +28,8 @@
     - DHCP server: lease IP addresses based on the MAC address of each node
     - Static IP: playbook
 - Hostnames
-    - playbook: set hostnames, copy /etc/hostnames to all nodes
+    - add [hosts](ansible/hosts) to `/etc/ansible/hosts`
+    - playbook: set hostnames, copy `/etc/hostnames` to all nodes
 #### Authentication
 - Generate SSH-keypair locally: `ssh-keygen -t rsa`
 - Copy the public key to all nodes and disable SSH password authentication

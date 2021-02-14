@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: web-wouterstemgee-cert
+  namespace: web-wouterstemgee
+spec:
+  commonName: wouterstemgee.be
+  secretName: wouterstemgee-be-cert
+  dnsNames:
+    - wouterstemgee.be
+    - www.wouterstemgee.be
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer

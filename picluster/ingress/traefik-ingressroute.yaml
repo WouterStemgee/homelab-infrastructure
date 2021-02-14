@@ -1,0 +1,34 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: web-wouterstemgee-ingress-https
+  namespace: web-wouterstemgee
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`wouterstemgee.be`)
+      kind: Rule
+      services:
+        - name: web-wouterstemgee-nginx
+          port: 80
+  tls:
+    secretName: wouterstemgee-be-cert
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: web-wouterstemgee-ingress-http
+  namespace: web-wouterstemgee
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`wouterstemgee.be`)
+      middlewares:
+        - name: https-only
+      kind: Rule
+      services:
+        - name: web-wouterstemgee-nginx
+          port: 80

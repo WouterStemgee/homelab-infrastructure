@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: web-wouterstemgee-nginx   
+  name: web-wouterstemgee-nginx   
+  namespace: web-wouterstemgee
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: web-wouterstemgee-nginx  
+  template:
+    metadata:
+      labels:
+        run: web-wouterstemgee-nginx   
+        app: web-wouterstemgee-nginx   
+    spec:
+      containers:
+      - image: nginx
+        name: web-wouterstemgee-nginx   
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html
+          name: web-wouterstemgee-volume
+      volumes:
+      - name: web-wouterstemgee-volume
+        configMap:
+          name: nginx-index-html
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: web-wouterstemgee-nginx
+  name: web-wouterstemgee-nginx
+spec:
+  ports:
+    - port: 80
+  selector:
+    app: web-wouterstemgee-nginx
+
+---
+apiVersion: v1
+data:
+  index.html: |-
+    <!doctype html>
+    <html>
+      <head>
+        <title>Wouter</title>
+      </head>
+      <body>
+        <p>Hello World!</p>
+      </body>
+    </html>
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: nginx-index-html
