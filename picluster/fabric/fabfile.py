@@ -1,24 +1,21 @@
 from fabric.api import *
 from fabric.colors import green
 
-env.skip_bad_hosts=True
-
-
+env.skip_bad_hosts = True
 env.hosts = [
     'ubuntu@control01.picluster', 
     'ubuntu@worker01.picluster', 
     'ubuntu@worker02.picluster'
             ]
  
-# All Raspberrys have the same password 
-env.password = ""
+env.password = "ubuntu"
  
 @parallel
 def check():
     # check host type
     host_type()
  
-    # Check diskspace
+    # check diskspace
     diskspace()
  
 @parallel
