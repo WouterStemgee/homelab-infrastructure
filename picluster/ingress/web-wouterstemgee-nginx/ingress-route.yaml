@@ -32,3 +32,14 @@ spec:
       services:
         - name: web-wouterstemgee-nginx
           port: 80
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: https-only
+  namespace: web-wouterstemgee
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
