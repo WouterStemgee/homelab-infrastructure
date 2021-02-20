@@ -9,18 +9,18 @@ This repository contains all the configuration files describing my personal home
 
 ## Infrastructure
 ### Virtualization Server (Proxmox)
-High performance virtualisation server running multiple VM's and containers. This server will be used as a playground environment for learning the latest DevOps practices and hosting resource intensive application.
+High performance virtualization server running multiple VM's and containers. This server will be used as a playground environment for learning the latest DevOps practices and hosting resource intensive applications.
 
 #### Specifications
 - Dell PowerEdge R620
 	- 2x Intel Xeon Processor E5-2690
 		- 8 cores, 16 threads (total of 32 threads)
-		- 1.80 GHz - 2.30 GHz
-		- 70W TDP
-	- 64GB DDR3 ECC RAM
-	- 1.2TB ZFS storage pool (8x 128GB SSD drive)
+		- 2.90 GHz - 3.80 GHz
+		- 135W TDP
+	- 80GB DDR3 ECC RAM
+	- 1TB ZFS storage pool (8x 128GB SSD drive)
 	- 2x 750W PSU
-	- PERC H710
+	- PERC H710 (runnning in IT mode, "software RAID")
 
 ### NAS Server (unRAID)
 Low power storage home server for streaming/downloading media content and storing data. Server exposes multiple shares to the local home network and a VPN service for securing external access to the local network.
