@@ -20,7 +20,7 @@ High performance virtualization server running multiple VM's and containers. Thi
 	- 80GB DDR3 ECC RAM
 	- 1TB ZFS storage pool (8x 128GB SSD drive)
 	- 2x 750W PSU
-	- PERC H710 (runnning in IT mode, "software RAID")
+	- PERC H310 Mini (runnning in IT mode, "software RAID")
 
 ### NAS Server (unRAID)
 Low power storage home server for streaming/downloading media content and storing data. Server exposes multiple shares to the local home network and a VPN service for securing external access to the local network.
@@ -30,8 +30,8 @@ Low power storage home server for streaming/downloading media content and storin
 - Intel Quad-Core Pentium Processor J5005 (up to 2.8GHz)
 	- 10W TDP (!)
 - 16GB DDR4 2400MHz SO-DIMM RAM
-- Samsung 860 Pro 500GB SSD (used for caching, Docker, VM's)
-- 2x 4TB WD Red NAS 3.5" SATA-600 HDD (5400rpm)
+- Samsung 850 EVO 500GB SSD (used for caching, Docker, VM's)
+- 4x 4TB WD Red NAS 3.5" SATA-600 HDD (5400rpm)
 	- spin-down supported in unRAID for improved efficiency
 
 ### Raspberry Pi Cluster (Kubernetes on Ubuntu 20.04)
