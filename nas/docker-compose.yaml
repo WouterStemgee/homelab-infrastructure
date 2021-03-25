@@ -43,7 +43,7 @@ services:
       - "8324:8324" # Roku
       - "32469:32469" # DLNA Server
       - "1900:1900" # DLNA Server
-      - "32410:32410" # GDM
+      - "32410:32410" # GDM - Plex autodiscovery protocol (G'Day Mate)
       - "32412:32412" # GDM
       - "32413:32413" # GDM
       - "32414:32414" # GDM
